@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vitrio - Digital Signage Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1111d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+        min-height: max(884px, 100dvh);
+    }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col">
+<!-- Header Section -->
+<header class="flex items-center bg-background-light dark:bg-background-dark p-4 sticky top-0 z-20 border-b border-slate-200 dark:border-slate-800">
+<div class="flex-1 flex items-center justify-start">
+    <a href="index.html" class="logo">
+        <img src="images/logo1.png" alt="Logo de Vitrio" class="logo-img">
+    </a>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center size-10 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden border border-slate-300 dark:border-slate-700">
+<img alt="Profile" data-alt="User profile avatar close up portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxyhntS0lp6KX3IsBqdGlCgZUDLvt2QXdBj9_4sA3YydGaDgLIC9ZYCYtu4_mJp2QL2RLoIfPXV8cHFQ0VK_3PazT0pVxs6ko8UFEeMODQtzi8m_MxyA4XgpSYhmCpzv_hPo2puASoR8s0-lSCQ0GstqqrWliWTbZHIlvMBD0g86xTzJYNq6OOw_xJxVrV52tyhQdn17_xOrjJPQulzxd4g3Wydrt1Vf-niu-vluCLwZe3P1t-wk07WneF0dQYl76W33d3UfP4kJNd"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Quick Status Overview -->
+<section class="px-4 pt-6">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-slate-900 dark:text-white text-lg font-bold">Quick Status</h2>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Network: Online</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Active Screens Card -->
+<div class="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Active Screens</p>
+<div class="size-2 rounded-full bg-primary shadow-[0_0_8px_rgba(17,17,212,0.6)]"></div>
+</div>
+<div class="flex items-baseline gap-2 mt-1">
+<p class="text-slate-900 dark:text-white text-3xl font-bold">12</p>
+<p class="text-emerald-500 text-xs font-bold leading-normal">+1</p>
+</div>
+<p class="text-slate-400 dark:text-slate-500 text-[10px] uppercase font-semibold">92% Operational</p>
+</div>
+<!-- Offline Screens Card -->
+<div class="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Offline</p>
+<div class="size-2 rounded-full bg-rose-500 animate-pulse"></div>
+</div>
+<div class="flex items-baseline gap-2 mt-1">
+<p class="text-slate-900 dark:text-white text-3xl font-bold">2</p>
+<p class="text-slate-400 dark:text-slate-500 text-xs font-bold leading-normal">0%</p>
+</div>
+<p class="text-slate-400 dark:text-slate-500 text-[10px] uppercase font-semibold">Action required</p>
+</div>
+</div>
+</section>
+<!-- Primary Action Button -->
+<section class="px-4 py-6">
+<button class="flex w-full items-center justify-center rounded-xl h-14 bg-primary text-white gap-3 text-base font-bold shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined">add_circle</span>
+<span>New Campaign</span>
+</button>
+</section>
+<!-- Recent Content List -->
+<section class="px-4">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-slate-900 dark:text-white text-lg font-bold">Recent Content</h2>
+<button class="text-primary text-sm font-semibold">View All</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Content Item 1 -->
+<div class="flex items-center gap-4 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 group">
+<div class="relative size-16 shrink-0 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Digital Art" class="size-full object-cover" data-alt="Abstract blue and purple 3D waves background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgDZWs2xlhb6MrtX6BE10xLbIsapGoUMkzT14Pfl2_YmRb3BaUm8fVwW8U6hMqVYBhq-Nnupt1WpwSByIxHjJpCKg9klIysbL9j2xSr9EqbH8o7NsRcKA6sUhSgwtw_xCidf3cVdjy87xATG0Y9DfYcwyl0ctoKnTGYQPL7KnUAPufa3fgA1zCATYIisZcq2R_aO0rfwF4ijRZOp6xL2eTpj-Utr7XbJ2Xm_V74kc_X8tN-5knTgQnDOBM1NVks8EjY5Vhiz1fDcAy"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-xl">play_circle</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-slate-900 dark:text-white font-semibold truncate">Summer Collection 2024</h3>
+<p class="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Retail Group A • 15s Video</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+<span class="text-[10px] font-bold text-emerald-500 uppercase">Live Now</span>
+</div>
+</div>
+<button class="text-slate-400 dark:text-slate-600">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Content Item 2 -->
+<div class="flex items-center gap-4 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 group">
+<div class="relative size-16 shrink-0 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Corporate Poster" class="size-full object-cover" data-alt="Modern blue gradient corporate background pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFmQgriZVtt_7_fWc5saQcnVY47Vpdhv5J_lvUuhPmHJ9DdfvSFUQdVCx_oRnB0nA2XOhDt-Bunby3AqsbY_7L2Zaj2lIf2qHrSbQ8vDQONWIdw3maaUBSEGy_UMOX1Nat93Qr9F-SrAS1uhRvGkjkhVsKOP8ISMERrPuCTiYVf3S9PDLjbHBuvLHi9iKUPxSuOPgZibAUXeME98bOhkh7_LNUZtLTVBTQJNOTNfHNqJCQJ1EDFW7S9ZzOwv_qvFGp_2e0op9Dl8jT"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-xl">play_circle</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-slate-900 dark:text-white font-semibold truncate">Quarterly All-Hands</h3>
+<p class="text-slate-500 dark:text-slate-400 text-xs mt-0.5">HQ Lobby • Static Image</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="size-1.5 rounded-full bg-slate-300 dark:bg-slate-600"></span>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Scheduled: 2h</span>
+</div>
+</div>
+<button class="text-slate-400 dark:text-slate-600">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Content Item 3 -->
+<div class="flex items-center gap-4 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 group">
+<div class="relative size-16 shrink-0 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Tech Showcase" class="size-full object-cover" data-alt="Retro hardware and neon lights aesthetic tech" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdjah_Cd38XffCob2DmQ2qyhpVgXDp4ZSYB3EP1EGpgrFh--MCycqkC6Nbyv1at12vyeOm-aJyv8qxpsuENgoyopjcGTN1Dn79SShDFj8XXWnYVvCjZ3UfNFWSPIloNLXX1TMLxWEIo6fgiv_dOhosFZ2HQnf3WagL4ZAPuJrnpfLpe4ZjIxuqE4fFy1PsLfRGa8eyBd9Rzf8_lVRUaMRhDXpcttHS04wzsGIDCQBMbKNOaTuJX1vLmEv3YRO1EtFuzn3mHXFyOFft"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-xl">play_circle</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-slate-900 dark:text-white font-semibold truncate">Tech Expo Promo</h3>
+<p class="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Conference Hall • 30s Loop</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+<span class="text-[10px] font-bold text-emerald-500 uppercase">Live Now</span>
+</div>
+</div>
+<button class="text-slate-400 dark:text-slate-600">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Content Item 4 -->
+<div class="flex items-center gap-4 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 group">
+<div class="relative size-16 shrink-0 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Event Photography" class="size-full object-cover" data-alt="Action shot of people at a concert event" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsPxfXEZewY8aj4e5Me8mjdZWLBo4hYpMUdOCA0PTMBphuLYKdWHheQ-8t0wlQhyNVes-R055RP84ltpomPeotuv5oDhlJFdsk-z5BgFiScpTr0s4QAjsoNvRATjPBDS9aqQ4Q-0zxJio-vgZzW0m2qLhpTd-gz69kr-apPV4mBW5ApnN5MjSxGDwcEL92-ZiZc0iyimA2RfNwIcwFI8gE0X_OQmCYXqzyd_LJ_6bw2VBhZzlqpyMx-XbsKEp5KskJo_AmeaAvOp-1"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-xl">play_circle</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-slate-900 dark:text-white font-semibold truncate">End of Season Sale</h3>
+<p class="text-slate-500 dark:text-slate-400 text-xs mt-0.5">All Stores • Banner</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="size-1.5 rounded-full bg-rose-500"></span>
+<span class="text-[10px] font-bold text-rose-500 uppercase">Expired</span>
+</div>
+</div>
+<button class="text-slate-400 dark:text-slate-600">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 z-30 bg-white/80 dark:bg-slate-950/80 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-4 pb-6 pt-2">
+<div class="flex justify-between items-center max-w-md mx-auto">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined fill-1">dashboard</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">monitor</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Screens</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">perm_media</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Library</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Settings</span>
+</a>
+</div>
+</nav>
+</body></html>

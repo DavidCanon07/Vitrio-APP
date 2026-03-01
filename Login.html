@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vitrio - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1111d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+        }
+        .bg-gradient-custom {
+            background: radial-gradient(circle at top right, #1111d433 0%, transparent 40%),
+                        radial-gradient(circle at bottom left, #1111d422 0%, transparent 40%),
+                        linear-gradient(180deg, #0a0a1a 0%, #020205 100%);
+        }
+        .primary-glow {
+            box-shadow: 0 0 20px rgba(17, 17, 212, 0.4);
+        }
+    </style>
+<style>
+    body {
+        min-height: max(884px, 100dvh);
+    }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex items-center justify-center p-4 bg-gradient-custom">
+<div class="w-full max-w-[440px] flex flex-col items-center">
+<!-- Logo Section -->
+<div class="mb-10 flex flex-col items-center"><a href="index.html" class="logo">
+                <img src="images/logo1.png" alt="Logo de Vitrio" class="logo-img">
+            </a></div>
+<!-- Glassmorphic Login Card -->
+<div class="glass-card w-full rounded-xl p-8 md:p-10 relative overflow-hidden">
+<!-- Subtle accent light -->
+<div class="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<div class="text-center mb-8">
+<h1 class="text-white text-2xl font-semibold mb-2">Welcome Back</h1>
+<p class="text-slate-400 text-sm">Enter your credentials to access your dashboard.</p>
+</div>
+<form class="space-y-5">
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="text-xs font-semibold text-slate-300 uppercase tracking-wider ml-1">Email Address</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-500 text-xl group-focus-within:text-primary transition-colors">mail</span>
+</div>
+<input class="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-4 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-sm" placeholder="name@company.com" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center px-1">
+<label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Password</label>
+<a class="text-xs text-primary font-medium hover:underline" href="#">Forgot?</a>
+</div>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-500 text-xl group-focus-within:text-primary transition-colors">lock</span>
+</div>
+<input class="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-12 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-sm" placeholder="••••••••" type="password"/>
+<div class="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer">
+<span class="material-symbols-outlined text-slate-500 text-xl hover:text-white transition-colors">visibility</span>
+</div>
+</div>
+</div>
+<!-- Sign In Button -->
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3.5 rounded-lg transition-all transform active:scale-[0.98] primary-glow mt-2" type="submit">
+                        Sign In
+                    </button>
+</form>
+<!-- Divider -->
+<div class="relative my-8">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-white/10"></div>
+</div>
+<div class="relative flex justify-center text-xs uppercase">
+<span class="bg-transparent px-2 text-slate-500 font-medium">Or continue with</span>
+</div>
+</div>
+<!-- Social Logins -->
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-2 bg-white/5 border border-white/10 hover:bg-white/10 text-white py-2.5 rounded-lg transition-colors">
+<img alt="Google" class="w-5 h-5 grayscale opacity-80" data-alt="Google colorful logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCH8vOCRngO669Q18kiS_qCMGQbeX0eAvtxCy5l7EVc0HlTS7Lx7qHX7ev5DsMvEMEx_Y6HkoSAs_ccmteiCrleb6JA1Uddr6GURZGj09Xm_0pnmWtwodtQXV8dLpvCaXWTO2Ad2mLSGiD8kvbt2vgfj53lebxEN6H4wKz5-enJwRgmYOU1HdlmyBrd0DyFN8narWtOSkzT4jTjDBSRgweU0aoq78TqhS-IpQgnue-91Y49BCtdXd_HIGgXVTX-V9iM9CW2uLDTDve"/>
+<span class="text-sm font-medium">Google</span>
+</button>
+<button class="flex items-center justify-center gap-2 bg-white/5 border border-white/10 hover:bg-white/10 text-white py-2.5 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-white text-xl">ios</span>
+<span class="text-sm font-medium">Apple</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Links -->
+<div class="mt-8 text-center space-y-4">
+<p class="text-slate-400 text-sm">
+                Don't have an account? 
+                <a class="text-primary font-semibold hover:underline" href="#">Sign up for free</a>
+</p>
+<div class="flex items-center justify-center gap-2 text-slate-500">
+<span class="material-symbols-outlined text-sm">encrypted</span>
+<span class="text-[11px] uppercase tracking-widest font-medium">Secure Encrypted Session</span>
+</div>
+</div>
+</div>
+</body></html>
