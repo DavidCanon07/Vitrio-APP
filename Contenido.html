@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vitrio Control Panel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1111d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#05050a",
+                        "surface-dark": "#0f0f1f",
+                        "accent-dark": "#1a1a3a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(15, 15, 31, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .active-glow {
+            box-shadow: 0 0 15px rgba(17, 17, 212, 0.3);
+        }
+    </style>
+<style>
+    body {
+        min-height: max(884px, 100dvh);
+    }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<nav class="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-4 py-4 justify-between border-b border-slate-200 dark:border-white/5">
+<div class="flex gap-3 flex-col">
+
+<div>
+<a href="index.html" class="logo">
+        <img src="images/logo1.png" alt="Logo de Vitrio" class="logo-img">
+    </a>
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold">System Online</p>
+</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="size-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-accent-dark text-slate-600 dark:text-slate-300 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-10 rounded-full bg-cover bg-center border-2 border-primary/20" data-alt="User profile avatar close up headshot" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYAoEM3-KmfFxJWntPJ3RthTOPOdJRIAmnUz6aZlQARnQuyvnZxUmLpiuS2XY5MvfkEtgo_ZQXS3azdpaoCDL94SXUHK1l3oNIbYKa-cw0vbeTJzSiWoqFnKQaYG7EH0KLGM9fywGNfT87HZHtN6mDTSpZ_bK6GmNdFPBgehUpGySoGt7ijrTOkQ1PyT631FMEIKtNyFWaWY_589jl78zJ4GWwXL-eJsn2xKMATsd4evalOn3FOC_lLAU7UPhZFqP0OmYjudL0BRg9");'></div>
+</div>
+</nav>
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Screen Selection Toggles -->
+<section class="px-4 py-6">
+<h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-4">Screen Selection</h2>
+<div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+<label class="flex-shrink-0 cursor-pointer group">
+<input checked="" class="hidden peer" name="screen" type="radio"/>
+<div class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-slate-100 dark:bg-surface-dark border border-transparent peer-checked:border-primary peer-checked:bg-primary/10 transition-all active-glow">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors peer-checked:text-primary">desktop_windows</span>
+<span class="text-xs font-semibold">Lobby Hub</span>
+</div>
+</label>
+<label class="flex-shrink-0 cursor-pointer group">
+<input class="hidden peer" name="screen" type="radio"/>
+<div class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-slate-100 dark:bg-surface-dark border border-transparent peer-checked:border-primary peer-checked:bg-primary/10 transition-all">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors peer-checked:text-primary">meeting_room</span>
+<span class="text-xs font-semibold">Conference</span>
+</div>
+</label>
+<label class="flex-shrink-0 cursor-pointer group">
+<input class="hidden peer" name="screen" type="radio"/>
+<div class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-slate-100 dark:bg-surface-dark border border-transparent peer-checked:border-primary peer-checked:bg-primary/10 transition-all">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors peer-checked:text-primary">door_front</span>
+<span class="text-xs font-semibold">Entrance</span>
+</div>
+</label>
+<label class="flex-shrink-0 cursor-pointer group">
+<input class="hidden peer" name="screen" type="radio"/>
+<div class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-slate-100 dark:bg-surface-dark border border-transparent peer-checked:border-primary peer-checked:bg-primary/10 transition-all">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors peer-checked:text-primary">restaurant</span>
+<span class="text-xs font-semibold">Cafeteria</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Media Library Section -->
+<section class="px-4 py-2">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-lg font-bold tracking-tight">Media Library</h2>
+<button class="text-primary text-sm font-semibold hover:underline">View All</button>
+</div>
+<div class="flex gap-2 mb-4 overflow-x-auto no-scrollbar">
+<button class="px-4 py-1.5 rounded-full bg-primary text-white text-xs font-bold">All</button>
+<button class="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-accent-dark text-slate-500 dark:text-slate-400 text-xs font-bold border border-transparent hover:border-primary/30 transition-all">Videos</button>
+<button class="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-accent-dark text-slate-500 dark:text-slate-400 text-xs font-bold border border-transparent hover:border-primary/30 transition-all">Images</button>
+<button class="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-accent-dark text-slate-500 dark:text-slate-400 text-xs font-bold border border-transparent hover:border-primary/30 transition-all">Templates</button>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Media Item 1 -->
+<div class="group relative aspect-square rounded-xl overflow-hidden bg-surface-dark border border-white/5 cursor-pointer shadow-xl">
+<img alt="Abstract fluid visual" class="object-cover w-full h-full opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="Vibrant abstract blue fluid wave pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADsFOTWzxZZyIxWltp3cd99Apz4De44TxxdUkF9Xmpp7bh6YztDm59-HPifAQeITlsxJ14H1np8_F9DOTSfYDZvSGTtdJ_mE9dfIWXYWdPYJR67r0w8dQ7G4IRuEtEo3CS1PIITM2Kh7hv8dJW2ktZlZ0UiuTq9CDOIfDRTop-g8WxPun4iIb5eDYKHBVT-FnWd40fu5cRm1XdYz1uFz1uK78hBqPEJ2DwIDvDisVzAOShx3Ekq7hiymOCKgEeg4oRwHW2yoU158iD"/>
+<div class="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-sm text-[10px] font-bold text-white uppercase tracking-wider">0:30</div>
+<div class="absolute bottom-0 inset-x-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+<p class="text-xs font-semibold truncate text-white">Brand_Hero_V1.mp4</p>
+</div>
+</div>
+<!-- Media Item 2 -->
+<div class="group relative aspect-square rounded-xl overflow-hidden bg-surface-dark border border-white/5 cursor-pointer shadow-xl">
+<img alt="Cyberpunk aesthetic setup" class="object-cover w-full h-full opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="Retro aesthetic neon technology display visual" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA82VEZ5zM9JQoVXKwlNbxg0WSS6a6V6ZWJ38ayJN5hGcnDlQEPlV-5F6g4Neqm9oWEZsxzZQtf9_biCzrFnZ_zIICDSYYqyLBonHZY_JTDo2M2_Yx_9WgyXpuEbp0EbjoFVAuGI0QQd5K-ZFnztE5rWFf1o4qYXzx9nO0AX8V6qcTMjLCfRQJfajzGjtBVIUibQjaPVRoZSiJx_9YObzmLpBr2UvR33ufMK2c-fSaPsLE5IIfsV1GjgjIulT_NWAY3GeeMoEU3xOSn"/>
+<div class="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-primary/80 backdrop-blur-sm text-[10px] font-bold text-white uppercase tracking-wider">IMG</div>
+<div class="absolute bottom-0 inset-x-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+<p class="text-xs font-semibold truncate text-white">Event_Promo.jpg</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Schedule Timeline -->
+<section class="px-4 py-8">
+<h2 class="text-lg font-bold tracking-tight mb-4">Schedule Timeline</h2>
+<div class="space-y-4 relative before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 dark:before:bg-white/5">
+<!-- Schedule Item: Now Playing -->
+<div class="relative pl-10">
+<div class="absolute left-0 top-1.5 size-10 rounded-full border-4 border-background-dark bg-primary flex items-center justify-center z-10 active-glow">
+<span class="material-symbols-outlined text-white text-lg">play_arrow</span>
+</div>
+<div class="glass-card p-4 rounded-2xl flex items-center justify-between border-l-4 border-l-primary">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[10px] font-bold uppercase tracking-widest text-primary">Now Playing</span>
+<span class="text-slate-500 dark:text-slate-400 text-xs tracking-tighter">• 12:00 PM - 1:30 PM</span>
+</div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Welcome_Greeting_Lobby</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Looping • High Priority</p>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Schedule Item: Up Next -->
+<div class="relative pl-10">
+<div class="absolute left-0 top-1.5 size-10 rounded-full border-4 border-background-dark bg-slate-800 flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-slate-400 text-lg">schedule</span>
+</div>
+<div class="glass-card p-4 rounded-2xl flex items-center justify-between opacity-60">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Up Next</span>
+<span class="text-slate-500 dark:text-slate-400 text-xs tracking-tighter">• 1:30 PM - 2:00 PM</span>
+</div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Daily_Lunch_Special</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Single Run • Auto-Expire</p>
+</div>
+<button class="text-slate-400">
+<span class="material-symbols-outlined">drag_indicator</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed right-6 bottom-24 size-14 rounded-2xl bg-primary text-white shadow-2xl shadow-primary/40 flex items-center justify-center hover:scale-105 transition-transform active:scale-95 z-40">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-50">
+<div class="flex gap-2 border-t border-slate-200 dark:border-white/5 bg-white/80 dark:bg-surface-dark/95 backdrop-blur-xl px-4 pb-8 pt-3">
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-primary" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">grid_view</span>
+</div>
+<p class="text-xs font-bold leading-normal tracking-wide">Library</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<p class="text-xs font-medium leading-normal tracking-wide">Schedule</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined">tv</span>
+</div>
+<p class="text-xs font-medium leading-normal tracking-wide">Screens</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined">bar_chart</span>
+</div>
+<p class="text-xs font-medium leading-normal tracking-wide">Analytics</p>
+</a>
+</div>
+</div>
+</body></html>
