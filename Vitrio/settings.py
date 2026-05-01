@@ -12,7 +12,11 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from corsheaders.defaults import default_headers
 from pathlib import Path
 from datetime import timedelta
+from pathlib import Path
+from dotenv import load_dotenv
+import os
 
+load_dotenv() # Carga las variables de entorno desde el archivo .env para mantener la seguridad de las credenciales y configuraciones sensibles fuera del código fuente
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,16 +25,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$#k5je^j*^kr*l^beb$#z5_e*vgl$x&l2x$xdlmeh0yclhi3p$'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Permite que ngrok acceda a la aplicación, y también permite el acceso desde localhost para desarrollo local
 ALLOWED_HOSTS = ['presymphonic-nonnavigably-rhys.ngrok-free.dev', 'localhost', '127.0.0.1']
 
 
 # Application definition
-
+# Aplicaciones instaladas en el proyecto 
+# incluye las aplicaciones de Django, CORS, DRF, y la aplicación personalizada VitrioApp
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,7 +49,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'VitrioApp',
 ]
-
+# Configuracion de los orígenes confiables para CSRF 
+# permite que el frontend acceda a la API desde estos orígenes:
 CSRF_TRUSTED_ORIGINS = [
     'https://presymphonic-nonnavigably-rhys.ngrok-free.dev',
     'http://presymphonic-nonnavigably-rhys.ngrok-free.dev',
@@ -51,7 +58,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
 ]
 
-
+# DRF - configuracion de la autenticacion, permisos, y esquema de la API
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -72,14 +79,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+# Permite que el frontend acceda a la API desde cualquier origen, y permite el uso de credenciales en las solicitudes CORS
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'ngrok-skip-browser-warning',
 ]
+# Configuracion de las URLs raíz y la aplicación WSGI para el proyecto
 ROOT_URLCONF = 'Vitrio.urls'
-
+# Configuracion de las plantillas - backend, directorios, y procesadores de contexto
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -94,21 +102,22 @@ TEMPLATES = [
         },
     },
 ]
-
+# Configuracion de la aplicación WSGI para el proyecto
 WSGI_APPLICATION = 'Vitrio.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# Base de datos de MYSQL - conexion al servidor local 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'VitrioDB',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',         
-        'PORT': '3306',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),         
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -116,6 +125,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
+# Configuracion de validadores de contraseñas - asegura que las contraseñas cumplan con ciertos criterios de seguridad
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -134,23 +144,21 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
-
+# Configuracion de internacionalizacion - idioma, zona horaria, y uso de i18n y zonas horarias
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
-
+# Configuracion de archivos estáticos - URL base para servir archivos estáticos como CSS, JS, e imágenes
 STATIC_URL = 'static/'
 
+# Configuacion de los tokens JWT - duracion de los tokens de acceso y refresco
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=8), #Duracion de los tokens 8 horas
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7), #Duracion de los tokens de refresco 7 dias
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=15), #Duracion de los tokens 15 dias
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=20), #Duracion de los tokens de refresco 20 dias
     
 }

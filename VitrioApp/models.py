@@ -1,5 +1,6 @@
 from django.db import models
 
+# Representa la tabla cliente en MySQL
 class Cliente (models.Model):
     id_cliente = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200)
@@ -8,14 +9,14 @@ class Cliente (models.Model):
     fecha_creacion= models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
     
-    class Meta:
+    class Meta: # Configuracion de la tabla en la base de datos - nombre de la tabla
         db_table = 'cliente'
 
-    def __str__(self):
+    def __str__(self): # Representacion en string del modelo - devuelve el nombre del cliente
         return self.nombre
-    
+# Representa la tabla usuario en MySQL - cada usuario esta asociado a un cliente y tiene un rol (administrador, administrador cliente, o cliente)
 class Usuario (models.Model):
-    ROL_CHOICES= [
+    ROL_CHOICES= [ # Opciones para el campo de rol del usuario - define los posibles roles que un usuario puede tener en el sistema
         ('ADMINISTRADOR',   'Administrador '),
         ('ADMINISTRADOR_CLIENTE', 'Administrador Cliente'),
         ('CLIENTE', 'Cliente'),
@@ -28,13 +29,13 @@ class Usuario (models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
-    class Meta: 
+    class Meta:  # Configuracion de la tabla en la base de datos - nombre de la tabla
         db_table = 'usuario'
     
-        def __str__(self):
+        def __str__(self): # Representacion en string del modelo - devuelve el id del usuario y su rol
             return f'{self.id_usuario} - {self.rol}'
     
-    
+# Representa la tabla credencial en MySQL - cada credencial esta asociada a un usuario y contiene información de autenticación como username, password, y email
 class Credencial(models.Model):
     id_credencial = models.AutoField(primary_key=True)
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column='id_usuario')
@@ -44,12 +45,13 @@ class Credencial(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
-    class Meta:
+    class Meta: # Configuracion de la tabla en la base de datos - nombre de la tabla
         db_table = 'credencial'
     
-    def __str__(self):
+    def __str__(self): # Representacion en string del modelo - devuelve el username de la credencial
         return self.username
-    
+
+# Representa la tabla proyecto en MySQL - cada proyecto esta asociado a un cliente y tiene campos para nombre, descripcion, fechas, estado, y timestamps de creación y actualización
 class Proyecto (models.Model):
     ESTADO_CHOICES = [
         ('PROPUESTO', 'Propuesto'),
@@ -63,7 +65,7 @@ class Proyecto (models.Model):
         ('COMPLETADO', 'Completado'),
         ('CERRADO', 'Cerrado'),
     ]
-
+# Campos del modelo Proyecto - id, cliente asociado, nombre, descripcion, fechas, estado, y timestamps de creación y actualización
     id_proyecto = models.AutoField(primary_key=True)
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, db_column='id_cliente')
     nombre = models.CharField(max_length=200)
@@ -74,12 +76,13 @@ class Proyecto (models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
     
-    class Meta:
+    class Meta: # Configuracion de la tabla en la base de datos - nombre de la tabla
         db_table = 'proyecto'
         
-        def __str__ (self):
+        def __str__ (self): # Representacion en string del modelo - devuelve el nombre del proyecto
             return self.nombre
 
+# Representa la tabla plantilla en MySQL - cada plantilla tiene un tipo (video, imagen, audio, metadato, o documento), estado (activa, inactiva, o deprecada), y campos para nombre, descripcion, version, ruta base, y timestamps de creación y actualización
 class Plantilla (models.Model):
     TIPO_CHOICES = [
         ('VIDEO', 'Video'),
@@ -88,13 +91,13 @@ class Plantilla (models.Model):
         ('METADATO', 'Metadato'),
         ('DOCUMENTO', 'Documento')
     ]
-    
+    # Opciones para el campo de estado de la plantilla - define los posibles estados que una plantilla puede tener en el sistema
     ESTADO_CHOICES = [
         ('ACTIVA', 'Activa'),
         ('INACTIVA', 'Inactiva'),
         ('DEPRECADA', 'Deprecada'),
     ]
-    
+    # Campos del modelo Plantilla - id, nombre, descripcion, tipo, version, estado, ruta base, y timestamps de creación y actualización
     id_plantilla = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField(null=True, blank=True)
@@ -105,12 +108,13 @@ class Plantilla (models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
     
-    class Meta:
+    class Meta: # Configuracion de la tabla en la base de datos - nombre de la tabla
         db_table = 'plantilla'
         
-    def __str__(self):
+    def __str__(self): # Representacion en string del modelo - devuelve el nombre de la plantilla
         return self.nombre
-    
+   
+# Representa la tabla archivo en MySQL - cada archivo esta asociado a un proyecto y opcionalmente a una plantilla, tiene un tipo (video, imagen, audio, paquete, metadato, o documento), y campos para nombre, ruta, fechas, y timestamps de creación y actualización 
 class Archivo(models.Model):
     TIPO_CHOICES =[
         ('VIDEO', 'Video'),
@@ -120,7 +124,7 @@ class Archivo(models.Model):
         ('METADATO', 'Metadato'),
         ('DOCUMENTO', 'Documento')
     ]    
-    
+    # Campos del modelo Archivo - id, proyecto asociado, plantilla asociada (opcional), nombre, ruta, tipo, fechas, y timestamps de creación y actualización
     id_archivo = models.AutoField(primary_key=True)
     id_proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE, db_column='id_proyecto')
     id_plantilla = models.ForeignKey(Plantilla, on_delete=models.SET_NULL, null=True, blank=True, db_column='id_plantilla')
@@ -130,18 +134,20 @@ class Archivo(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
     
-    class Meta:
+    class Meta: # Configuracion de la tabla en la base de datos - nombre de la tabla
         db_table = 'archivo'
         
-    def __str__ (self):
+    def __str__ (self): # Representacion en string del modelo - devuelve el nombre del archivo
         return self.nombre
+    
+# Representa la tabla dispositivo en MySQL - cada dispositivo esta asociado a un proyecto, tiene un estado (activo, inactivo, o sin conexión), y campos para nombre, ubicacion, token, resolucion, fechas, y timestamps de creación y actualización
 class Dispositivo(models.Model):
     ESTADO_CHOICES =[
         ('ACTIVO', 'Activo'),
         ('INACTIVO', 'Inactivo'),   
         ('SIN_CONEXION', 'Sin Conexión'),
     ]
-    
+    # Campos del modelo Dispositivo - id, proyecto asociado, nombre, ubicacion, token, resolucion, estado, ultima conexion, y timestamps de creación y actualización
     id_dispositivo = models.AutoField(primary_key=True)
     id_proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE, db_column='id_proyecto')
     nombre = models.CharField(max_length=200)
@@ -153,10 +159,10 @@ class Dispositivo(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
     
-    class Meta:
+    class Meta: # Configuracion de la tabla en la base de datos - nombre de la tabla
         db_table = 'dispositivo'
         
-    def __str__ (self):
+    def __str__ (self): # Representacion en string del modelo - devuelve el nombre del dispositivo
         return self.nombre
     
     
