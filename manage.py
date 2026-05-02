@@ -3,7 +3,8 @@
 import os
 import sys
 
-
+ # Configuracion del entorno para ejecutar comandos de Django 
+ # establece la variable de entorno para las configuraciones del proyecto, e importa la función para ejecutar comandos desde la línea de comandos
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Vitrio.settings')
