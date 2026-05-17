@@ -19,7 +19,7 @@ import os
 load_dotenv() # Carga las variables de entorno desde el archivo .env para mantener la seguridad de las credenciales y configuraciones sensibles fuera del código fuente
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+DEBUG = os.getenv('DEBUG', 'False') == 'True' # Configura el modo de depuración basado en la variable de entorno DEBUG, lo que permite cambiar fácilmente entre desarrollo y producción sin modificar el código
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -31,7 +31,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 # Permite que ngrok acceda a la aplicación, y también permite el acceso desde localhost para desarrollo local
-ALLOWED_HOSTS = ['presymphonic-nonnavigably-rhys.ngrok-free.dev', 'localhost', '127.0.0.1']
+#ALLOWED_HOSTS = ['presymphonic-nonnavigably-rhys.ngrok-free.dev', 'localhost', '127.0.0.1']
+ALLOOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -72,6 +73,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -162,3 +164,6 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=20), #Duracion de los tokens de refresco 20 dias
     
 }
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
