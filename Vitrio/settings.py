@@ -28,7 +28,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True' # Configura el modo de depuración
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # Permite que ngrok acceda a la aplicación, y también permite el acceso desde localhost para desarrollo local
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
