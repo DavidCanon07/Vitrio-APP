@@ -20,10 +20,7 @@ async function refreshAccessToken() {
   try {
     const res = await fetch(`${API_BASE}/api/token/refresh/`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "ngrok-skip-browser-warning": "true"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh }),
     });
     if (!res.ok) return null;
@@ -43,7 +40,6 @@ async function apiFetch(path, method = "GET", body = null) {
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
-      "ngrok-skip-browser-warning": "true",
     },
     ...(body ? { body: JSON.stringify(body) } : {}),
   });
@@ -146,22 +142,15 @@ function LoginScreen({ onLogin }) {
     try {
       const res = await fetch(`${API_BASE}/api/login/`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "true"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: user, password: pass }),
       });
-      if (!res.ok) {
-        setError("Credenciales incorrectas");
-        setLoading(false);
-        return;
-      }
+      if (!res.ok) { setError("Credenciales incorrectas"); setLoading(false); return; }
       const data = await res.json();
       saveTokens(data.access, data.refresh);
       setLoading(false);
       onLogin();
-    } catch (e) {
+    } catch {
       setError("No se pudo conectar con el servidor");
       setLoading(false);
     }
@@ -177,9 +166,6 @@ function LoginScreen({ onLogin }) {
   return (
     <div style={{ minHeight:"100vh", background:"linear-gradient(160deg,#111827 0%,#0f172a 100%)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"1rem", fontFamily:"'Segoe UI',system-ui,sans-serif" }}>
       <style>{`*{box-sizing:border-box;margin:0;padding:0;} @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
-
-      <div style={{ position:"fixed", top:"-100px", left:"50%", transform:"translateX(-50%)", width:"600px", height:"400px", background:"radial-gradient(ellipse,rgba(59,91,219,0.15) 0%,transparent 70%)", pointerEvents:"none" }}/>
-
       <div style={{ display:"flex", alignItems:"center", gap:"0.6rem", marginBottom:"2rem", animation:"fadeUp 0.4s ease" }}>
         <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
           <defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#60a5fa"/><stop offset="100%" stopColor="#3b5bdb"/></linearGradient></defs>
@@ -193,9 +179,7 @@ function LoginScreen({ onLogin }) {
         <p style={{ color:"#3a5070", fontSize:"0.85rem", textAlign:"center", marginBottom:"1.6rem" }}>Ingresa tus credenciales para continuar</p>
 
         {error && (
-          <div style={{ background:"rgba(248,113,113,0.1)", border:"1px solid rgba(248,113,113,0.3)", borderRadius:"9px", padding:"0.65rem 0.9rem", color:"#f87171", fontSize:"0.83rem", marginBottom:"1rem", textAlign:"center" }}>
-            {error}
-          </div>
+          <div style={{ background:"rgba(248,113,113,0.1)", border:"1px solid rgba(248,113,113,0.3)", borderRadius:"9px", padding:"0.65rem 0.9rem", color:"#f87171", fontSize:"0.83rem", marginBottom:"1rem", textAlign:"center" }}>{error}</div>
         )}
 
         <div style={{ marginBottom:"1rem" }}>
@@ -216,12 +200,10 @@ function LoginScreen({ onLogin }) {
         </div>
 
         <button onClick={handleLogin} disabled={loading}
-          style={{ width:"100%", padding:"0.85rem", background:"linear-gradient(135deg,#3b5bdb,#2244cc)", color:"#fff", border:"none", borderRadius:"11px", fontWeight:800, fontSize:"0.95rem", cursor:"pointer", boxShadow:"0 4px 18px rgba(59,91,219,0.4)", opacity:loading?0.7:1, transition:"all 0.2s" }}>
+          style={{ width:"100%", padding:"0.85rem", background:"linear-gradient(135deg,#3b5bdb,#2244cc)", color:"#fff", border:"none", borderRadius:"11px", fontWeight:800, fontSize:"0.95rem", cursor:"pointer", boxShadow:"0 4px 18px rgba(59,91,219,0.4)", opacity:loading?0.7:1 }}>
           {loading ? "Ingresando..." : "Sign In"}
         </button>
       </div>
-
-      <p style={{ color:"#1e3258", fontSize:"0.7rem", marginTop:"1.5rem", letterSpacing:"0.08em" }}>🔒 SECURE ENCRYPTED SESSION</p>
     </div>
   );
 }
@@ -263,7 +245,7 @@ function EntityForm({ entity, initial, onSubmit, onCancel }) {
         </div>
       ))}
       <div style={{ display:"flex", gap:"0.65rem", marginTop:"1.2rem" }}>
-        <button onClick={()=>onSubmit(form)} style={{ flex:1, padding:"0.68rem", background:"linear-gradient(135deg,#3b5bdb,#2244cc)", color:"#fff", border:"none", borderRadius:"9px", fontWeight:700, cursor:"pointer", fontSize:"0.85rem", boxShadow:"0 4px 14px rgba(59,91,219,0.4)" }}>{initial?"Guardar cambios":"Crear registro"}</button>
+        <button onClick={()=>onSubmit(form)} style={{ flex:1, padding:"0.68rem", background:"linear-gradient(135deg,#3b5bdb,#2244cc)", color:"#fff", border:"none", borderRadius:"9px", fontWeight:700, cursor:"pointer", fontSize:"0.85rem" }}>{initial?"Guardar cambios":"Crear registro"}</button>
         <button onClick={onCancel} style={{ flex:1, padding:"0.68rem", background:"rgba(255,255,255,0.06)", color:"#94a3b8", border:"1.5px solid rgba(255,255,255,0.1)", borderRadius:"9px", fontWeight:600, cursor:"pointer", fontSize:"0.85rem" }}>Cancelar</button>
       </div>
     </div>
@@ -314,8 +296,8 @@ function EntityTable({ entity, data, onEdit, onDelete }) {
               {schema.map(f=>(
                 <td key={f.key} style={td}>
                   {BADGE_KEYS.includes(f.key) && ESTADO_COLORS[row[f.key]] ? (
-                    <span style={{ display:"inline-flex", alignItems:"center", gap:"0.28rem", padding:"0.2rem 0.6rem", borderRadius:"999px", fontSize:"0.71rem", fontWeight:700, background:ESTADO_COLORS[row[f.key]].bg, color:ESTADO_COLORS[row[f.key]].text, border:`1px solid ${ESTADO_COLORS[row[f.key]].border}` }}>
-                      <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:ESTADO_COLORS[row[f.key]].text, display:"inline-block" }}/>
+                    <span style={{ display:"inline-flex", alignItems:"center", gap:"0.28rem", padding:"0.2rem 0.6rem", borderRadius:"999px", fontSize:"0.71rem", fontWeight:700, background:ESTADO_COLORS[row[f.key]].bg, color:ESTADO_COLORS[row[f.key]].text, border:`1px solid ${ESTADO_COLORS[row[f.key]].border}`, whiteSpace:"nowrap" }}>
+                      <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:ESTADO_COLORS[row[f.key]].text, display:"inline-block", flexShrink:0 }}/>
                       {row[f.key]}
                     </span>
                   ) : f.key==="email" ? (
@@ -327,8 +309,8 @@ function EntityTable({ entity, data, onEdit, onDelete }) {
               ))}
               <td style={{...td,textAlign:"center"}}>
                 <div style={{ display:"flex", gap:"0.32rem", justifyContent:"center" }}>
-                  <button onClick={()=>onEdit(row)} style={{ padding:"0.26rem 0.7rem", background:"rgba(59,130,246,0.12)", color:"#60a5fa", border:"1px solid rgba(59,130,246,0.25)", borderRadius:"6px", cursor:"pointer", fontWeight:600, fontSize:"0.73rem" }}>Editar</button>
-                  <button onClick={()=>onDelete(row)} style={{ padding:"0.26rem 0.7rem", background:"rgba(248,113,113,0.1)", color:"#f87171", border:"1px solid rgba(248,113,113,0.25)", borderRadius:"6px", cursor:"pointer", fontWeight:600, fontSize:"0.73rem" }}>Eliminar</button>
+                  <button onClick={()=>onEdit(row)} style={{ padding:"0.26rem 0.7rem", background:"rgba(59,130,246,0.12)", color:"#60a5fa", border:"1px solid rgba(59,130,246,0.25)", borderRadius:"6px", cursor:"pointer", fontWeight:600, fontSize:"0.73rem", whiteSpace:"nowrap" }}>Editar</button>
+                  <button onClick={()=>onDelete(row)} style={{ padding:"0.26rem 0.7rem", background:"rgba(248,113,113,0.1)", color:"#f87171", border:"1px solid rgba(248,113,113,0.25)", borderRadius:"6px", cursor:"pointer", fontWeight:600, fontSize:"0.73rem", whiteSpace:"nowrap" }}>Eliminar</button>
                 </div>
               </td>
             </tr>
@@ -358,6 +340,7 @@ function Dashboard({ onLogout }) {
   const [selected, setSelected] = useState(null);
   const [toast, setToast]       = useState(null);
   const [search, setSearch]     = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const meta = ENTITY_META[active];
 
@@ -401,6 +384,12 @@ function Dashboard({ onLogout }) {
     Object.values(row).some(v=>String(v).toLowerCase().includes(search.toLowerCase()))
   );
 
+  const handleNav = (key) => {
+    setActive(key);
+    setSearch("");
+    setSidebarOpen(false);
+  };
+
   return (
     <div style={{ minHeight:"100vh", background:"linear-gradient(160deg,#111827 0%,#0f172a 100%)", fontFamily:"'Segoe UI',system-ui,sans-serif", display:"flex" }}>
       <style>{`
@@ -411,10 +400,104 @@ function Dashboard({ onLogout }) {
         @keyframes toastIn{from{opacity:0;transform:translateX(110%)}to{opacity:1;transform:translateX(0)}}
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
         option{background:#1a2540;}
+
+        .sidebar {
+          width: 215px;
+          min-height: 100vh;
+          flex-shrink: 0;
+          background: rgba(14,20,38,0.97);
+          border-right: 1px solid rgba(255,255,255,0.07);
+          display: flex;
+          flex-direction: column;
+          padding: 1.3rem 0.8rem;
+          position: fixed;
+          top: 0; left: 0; bottom: 0;
+          z-index: 50;
+          transition: transform 0.25s ease;
+        }
+        .main-content {
+          margin-left: 215px;
+          flex: 1;
+          padding: 1.6rem 1.8rem;
+          min-width: 0;
+        }
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          gap: 0.7rem;
+          margin-bottom: 1.2rem;
+        }
+        .hamburger {
+          display: none;
+        }
+        .overlay {
+          display: none;
+        }
+
+        @media (max-width: 900px) {
+          .sidebar {
+            transform: translateX(-100%);
+            width: 240px;
+          }
+          .sidebar.open {
+            transform: translateX(0);
+            box-shadow: 8px 0 32px rgba(0,0,0,0.5);
+          }
+          .main-content {
+            margin-left: 0;
+            padding: 1rem;
+          }
+          .stats-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+          .hamburger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px; height: 38px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 9px;
+            cursor: pointer;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+          }
+          .overlay.open {
+            display: block;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 49;
+            backdrop-filter: blur(2px);
+          }
+        }
+
+        @media (max-width: 520px) {
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .main-content {
+            padding: 0.75rem;
+          }
+          .topbar {
+            flex-wrap: wrap;
+            gap: 0.75rem;
+          }
+          .topbar h1 {
+            font-size: 1.2rem !important;
+          }
+          .new-btn span {
+            display: none;
+          }
+        }
       `}</style>
 
+      {/* OVERLAY para cerrar sidebar en móvil */}
+      <div className={`overlay ${sidebarOpen ? "open" : ""}`} onClick={()=>setSidebarOpen(false)}/>
+
       {/* SIDEBAR */}
-      <aside style={{ width:"215px", minHeight:"100vh", flexShrink:0, background:"rgba(14,20,38,0.97)", borderRight:"1px solid rgba(255,255,255,0.07)", display:"flex", flexDirection:"column", padding:"1.3rem 0.8rem", position:"fixed", top:0, left:0, bottom:0, zIndex:50 }}>
+      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <div style={{ display:"flex", alignItems:"center", gap:"0.5rem", padding:"0 0.4rem", marginBottom:"2rem" }}>
           <VitrioLogo size={22}/>
           <span style={{ fontSize:"1.2rem", fontWeight:900, letterSpacing:"0.07em", color:"#f1f5f9" }}>VIT<span style={{ fontWeight:300, opacity:0.6 }}>RIO</span></span>
@@ -425,11 +508,8 @@ function Dashboard({ onLogout }) {
         {Object.entries(ENTITY_META).map(([key,m])=>{
           const isA = active===key;
           return (
-            <button key={key} onClick={()=>{setActive(key);setSearch("");}}
-              style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0.6rem 0.72rem", borderRadius:"10px", border:"none", background:isA?"rgba(59,91,219,0.2)":"transparent", color:isA?"#93c5fd":"#3a5878", cursor:"pointer", fontWeight:isA?700:500, fontSize:"0.845rem", marginBottom:"0.15rem", transition:"all 0.15s", width:"100%", textAlign:"left", boxShadow:isA?"inset 0 0 0 1px rgba(59,91,219,0.35)":"none" }}
-              onMouseEnter={e=>{if(!isA)e.currentTarget.style.background="rgba(255,255,255,0.05)";}}
-              onMouseLeave={e=>{if(!isA)e.currentTarget.style.background="transparent";}}
-            >
+            <button key={key} onClick={()=>handleNav(key)}
+              style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0.6rem 0.72rem", borderRadius:"10px", border:"none", background:isA?"rgba(59,91,219,0.2)":"transparent", color:isA?"#93c5fd":"#3a5878", cursor:"pointer", fontWeight:isA?700:500, fontSize:"0.845rem", marginBottom:"0.15rem", transition:"all 0.15s", width:"100%", textAlign:"left", boxShadow:isA?"inset 0 0 0 1px rgba(59,91,219,0.35)":"none" }}>
               <div style={{ display:"flex", alignItems:"center", gap:"0.52rem" }}><span>{m.icon}</span><span>{m.label}</span></div>
               <span style={{ fontSize:"0.67rem", fontWeight:700, padding:"0.07rem 0.42rem", borderRadius:"999px", background:isA?"rgba(59,91,219,0.3)":"rgba(255,255,255,0.05)", color:isA?"#93c5fd":"#1e3258" }}>{(data[key]||[]).length}</span>
             </button>
@@ -451,30 +531,31 @@ function Dashboard({ onLogout }) {
       </aside>
 
       {/* MAIN */}
-      <main style={{ marginLeft:"215px", flex:1, padding:"1.6rem 1.8rem" }}>
-        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"1.4rem" }}>
-          <div>
-            <div style={{ fontSize:"0.65rem", color:"#1e3258", fontWeight:600, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.22rem" }}>vitrio / {meta.label.toLowerCase()}</div>
-            <h1 style={{ fontSize:"1.55rem", fontWeight:800, letterSpacing:"-0.03em", color:"#f1f5f9" }}>{meta.icon} {meta.label}</h1>
-            <p style={{ color:"#3a5070", fontSize:"0.78rem", marginTop:"0.22rem" }}>{filtered.length} registro{filtered.length!==1?"s":""}</p>
+      <main className="main-content">
+        {/* TOPBAR */}
+        <div className="topbar" style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"1.4rem", gap:"0.75rem" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:"0.75rem", minWidth:0 }}>
+            {/* Hamburger */}
+            <button className="hamburger" onClick={()=>setSidebarOpen(o=>!o)}>☰</button>
+            <div style={{ minWidth:0 }}>
+              <div style={{ fontSize:"0.65rem", color:"#1e3258", fontWeight:600, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.22rem" }}>vitrio / {meta.label.toLowerCase()}</div>
+              <h1 style={{ fontSize:"1.55rem", fontWeight:800, letterSpacing:"-0.03em", color:"#f1f5f9", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{meta.icon} {meta.label}</h1>
+              <p style={{ color:"#3a5070", fontSize:"0.78rem", marginTop:"0.22rem" }}>{filtered.length} registro{filtered.length!==1?"s":""}</p>
+            </div>
           </div>
-          <button onClick={()=>{setSelected(null);setModal("create");}}
-            style={{ display:"flex", alignItems:"center", gap:"0.42rem", padding:"0.65rem 1.2rem", background:"linear-gradient(135deg,#3b5bdb,#2244cc)", color:"#fff", border:"none", borderRadius:"11px", fontWeight:700, cursor:"pointer", fontSize:"0.84rem", boxShadow:"0 4px 18px rgba(59,91,219,0.4)", transition:"transform 0.15s,box-shadow 0.15s" }}
-            onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-2px)";e.currentTarget.style.boxShadow="0 8px 24px rgba(59,91,219,0.55)";}}
-            onMouseLeave={e=>{e.currentTarget.style.transform="";e.currentTarget.style.boxShadow="0 4px 18px rgba(59,91,219,0.4)";}}
-          >+ Nuevo {meta.label.slice(0,-1)}</button>
+          <button className="new-btn" onClick={()=>{setSelected(null);setModal("create");}}
+            style={{ display:"flex", alignItems:"center", gap:"0.42rem", padding:"0.65rem 1.2rem", background:"linear-gradient(135deg,#3b5bdb,#2244cc)", color:"#fff", border:"none", borderRadius:"11px", fontWeight:700, cursor:"pointer", fontSize:"0.84rem", boxShadow:"0 4px 18px rgba(59,91,219,0.4)", flexShrink:0, whiteSpace:"nowrap" }}>
+            + <span>Nuevo {meta.label.slice(0,-1)}</span>
+          </button>
         </div>
 
         {/* Stats */}
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(6,1fr)", gap:"0.7rem", marginBottom:"1.2rem" }}>
+        <div className="stats-grid">
           {Object.entries(ENTITY_META).map(([key,m])=>{
             const isA=active===key;
             return (
-              <div key={key} onClick={()=>setActive(key)}
-                style={{ padding:"0.9rem", borderRadius:"12px", cursor:"pointer", background:isA?"rgba(59,91,219,0.15)":"rgba(255,255,255,0.03)", border:`1.5px solid ${isA?"rgba(59,91,219,0.4)":"rgba(255,255,255,0.06)"}`, boxShadow:isA?"0 4px 20px rgba(59,91,219,0.15)":"none", transition:"all 0.2s", borderTop:`3px solid ${isA?"#3b5bdb":"rgba(255,255,255,0.05)"}` }}
-                onMouseEnter={e=>{if(!isA){e.currentTarget.style.background="rgba(255,255,255,0.055)";e.currentTarget.style.borderColor="rgba(59,91,219,0.2)";}}}
-                onMouseLeave={e=>{if(!isA){e.currentTarget.style.background="rgba(255,255,255,0.03)";e.currentTarget.style.borderColor="rgba(255,255,255,0.06)";}}}
-              >
+              <div key={key} onClick={()=>handleNav(key)}
+                style={{ padding:"0.9rem", borderRadius:"12px", cursor:"pointer", background:isA?"rgba(59,91,219,0.15)":"rgba(255,255,255,0.03)", border:`1.5px solid ${isA?"rgba(59,91,219,0.4)":"rgba(255,255,255,0.06)"}`, boxShadow:isA?"0 4px 20px rgba(59,91,219,0.15)":"none", transition:"all 0.2s", borderTop:`3px solid ${isA?"#3b5bdb":"rgba(255,255,255,0.05)"}` }}>
                 <div style={{ fontSize:"1.1rem", marginBottom:"0.3rem" }}>{m.icon}</div>
                 <div style={{ fontSize:"1.3rem", fontWeight:800, color:isA?"#93c5fd":"#e2e8f0", letterSpacing:"-0.04em" }}>{(data[key]||[]).length}</div>
                 <div style={{ fontSize:"0.6rem", color:isA?"#3a5878":"#1e3258", fontWeight:600, textTransform:"uppercase", letterSpacing:"0.06em", marginTop:"0.1rem" }}>{m.label}</div>
@@ -485,13 +566,13 @@ function Dashboard({ onLogout }) {
 
         {/* Table */}
         <div style={{ background:"rgba(14,20,38,0.8)", borderRadius:"15px", border:"1px solid rgba(255,255,255,0.07)", overflow:"hidden" }}>
-          <div style={{ padding:"0.88rem 1.05rem", display:"flex", gap:"0.62rem", alignItems:"center", borderBottom:"1px solid rgba(255,255,255,0.05)", background:"rgba(255,255,255,0.015)" }}>
-            <div style={{ flex:1, position:"relative" }}>
+          <div style={{ padding:"0.88rem 1.05rem", display:"flex", gap:"0.62rem", alignItems:"center", borderBottom:"1px solid rgba(255,255,255,0.05)", background:"rgba(255,255,255,0.015)", flexWrap:"wrap" }}>
+            <div style={{ flex:1, minWidth:"140px", position:"relative" }}>
               <span style={{ position:"absolute", left:"0.72rem", top:"50%", transform:"translateY(-50%)", color:"#1e3258", fontSize:"0.84rem" }}>🔍</span>
-              <input type="text" placeholder={`Buscar en ${meta.label.toLowerCase()}...`} value={search} onChange={e=>setSearch(e.target.value)}
+              <input type="text" placeholder={`Buscar...`} value={search} onChange={e=>setSearch(e.target.value)}
                 style={{ width:"100%", padding:"0.54rem 0.84rem 0.54rem 1.95rem", background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:"8px", color:"#e2e8f0", fontSize:"0.82rem", outline:"none", fontFamily:"inherit" }}/>
             </div>
-            <button onClick={()=>load(active)} style={{ padding:"0.54rem 0.88rem", background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:"8px", color:"#3a5070", cursor:"pointer", fontSize:"0.78rem", fontWeight:600 }}>↻ Sync</button>
+            <button onClick={()=>load(active)} style={{ padding:"0.54rem 0.88rem", background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:"8px", color:"#3a5070", cursor:"pointer", fontSize:"0.78rem", fontWeight:600, whiteSpace:"nowrap" }}>↻ Sync</button>
           </div>
 
           {loading ? (
@@ -528,9 +609,7 @@ export default function App() {
 
   useEffect(() => {
     const token = getAccess();
-    if (token) {
-      setLogged(true);
-    }
+    if (token) setLogged(true);
     setChecking(false);
   }, []);
 
