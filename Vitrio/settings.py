@@ -31,8 +31,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 # Permite que ngrok acceda a la aplicación, y también permite el acceso desde localhost para desarrollo local
-#ALLOWED_HOSTS = ['presymphonic-nonnavigably-rhys.ngrok-free.dev', 'localhost', '127.0.0.1']
-ALLOOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 
 # Application definition
