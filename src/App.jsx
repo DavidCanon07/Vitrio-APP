@@ -129,8 +129,8 @@ const BADGE_KEYS = ["estado","rol","tipo"];
 
 // ─── LOGIN ────────────────────────────────────────────────────────────────────
 function LoginScreen({ onLogin }) {
-  const [user, setUser]       = useState("Manuel");
-  const [pass, setPass]       = useState("mondongo123");
+  const [user, setUser]       = useState("");
+  const [pass, setPass]       = useState("");
   const [show, setShow]       = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState("");
