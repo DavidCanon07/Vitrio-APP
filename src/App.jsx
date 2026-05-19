@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-const API_BASE = "https://presymphonic-nonnavigably-rhys.ngrok-free.dev";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 // ─── AUTH ─────────────────────────────────────────────────────────────────────
 const getAccess  = () => localStorage.getItem("vitrio_access");
@@ -133,8 +133,8 @@ const BADGE_KEYS = ["estado","rol","tipo"];
 
 // ─── LOGIN ────────────────────────────────────────────────────────────────────
 function LoginScreen({ onLogin }) {
-  const [user, setUser]       = useState("manuel");
-  const [pass, setPass]       = useState("front123");
+  const [user, setUser]       = useState("Manuel");
+  const [pass, setPass]       = useState("mondongo123");
   const [show, setShow]       = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState("");
