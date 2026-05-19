@@ -195,7 +195,7 @@ function LoginScreen({ onLogin }) {
           <div style={{ position:"relative" }}>
             <span style={{ position:"absolute", left:"0.85rem", top:"50%", transform:"translateY(-50%)", color:"#3a5070" }}>🔒</span>
             <input type={show?"text":"password"} value={pass} onChange={e=>setPass(e.target.value)} placeholder="••••••••" style={{...inp, paddingRight:"2.6rem"}} onKeyDown={e=>e.key==="Enter"&&handleLogin()}/>
-            <button onClick={()=>setShow(!show)} style={{ position:"absolute", right:"0.85rem", top:"50%", transform:"translateY(-50%)", background:"none", border:"none", cursor:"pointer", color:"#3a5070", fontSize:"0.9rem" }}>{show?"🙈":"👁"}</button>
+            <button onClick={()=>setShow(!show)} style={{ position:"absolute", right:"0.85rem", top:"50%", transform:"translateY(-50%)", background:"none", border:"none", cursor:"pointer", color:"#3a5070", fontSize:"0.9rem" }}>{show?"👁":"👁"}</button>
           </div>
         </div>
 
