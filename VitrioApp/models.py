@@ -129,7 +129,7 @@ class Archivo(models.Model):
     id_proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE, db_column='id_proyecto')
     id_plantilla = models.ForeignKey(Plantilla, on_delete=models.SET_NULL, null=True, blank=True, db_column='id_plantilla')
     nombre = models.CharField(max_length=200)
-    ruta = models.CharField(max_length=500)
+    ruta = models.CharField(max_length=500, null=True, blank=True)
     tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
